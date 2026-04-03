@@ -38,26 +38,36 @@ v2 加入的「论」和「脉搏」就是为了堵住这个漏洞：
 
 ---
 
+## 仓库结构
+
+```
+research-engine-skill/
+├── SKILL.md              ← Cursor Skill 定义（安装到 ~/.cursor/skills/research-engine/）
+├── README.md
+├── thesis-timeline.md    ← 开题时间线与汇报节点
+└── notes/                ← 研究数据（跨设备同步的核心）
+    ├── research-journal.md    按问题分节的读书笔记
+    ├── search-matrix.md       检索词矩阵
+    ├── bibliography.md        论著目录（侯公规范）
+    └── argument-skeleton.md   论点骨架（唯一允许修改的文件）
+```
+
 ## 安装
 
-将 `SKILL.md` 放到 `~/.cursor/skills/research-engine/` 目录下：
-
 ```bash
+# 1. 克隆仓库
+git clone https://github.com/seasidedog24/research-engine-skill.git ~/Documents/research-engine-skill
+
+# 2. 安装 Skill 到 Cursor
 mkdir -p ~/.cursor/skills/research-engine
-cp SKILL.md ~/.cursor/skills/research-engine/
+cp ~/Documents/research-engine-skill/SKILL.md ~/.cursor/skills/research-engine/
+
+# 3. 软链接笔记目录（让 Skill 读写的路径指向仓库内的文件）
+ln -sfn ~/Documents/research-engine-skill/notes ~/Documents/notes
 ```
 
-## 初始化研究笔记
-
-首次使用前，创建四个核心文件：
-
-```bash
-mkdir -p ~/Documents/notes
-touch ~/Documents/notes/research-journal.md
-touch ~/Documents/notes/search-matrix.md
-touch ~/Documents/notes/bibliography.md
-touch ~/Documents/notes/argument-skeleton.md
-```
+> **跨设备同步**：在新设备上 clone 后执行上面 3 步即可续跑。
+> 研究数据改完后 `cd ~/Documents/research-engine-skill && git add -A && git commit && git push`。
 
 ## 使用方式
 

@@ -178,17 +178,27 @@ description: >-
    → 意图不同，检索策略不同：找具体论文直奔知网精确式；摸清学术史先宽后窄多关键词交叉；确认学者论著先搜作者名再展开。若意图模糊，默认走宽检索后问用户是否需要深入。
 
 1. 解析用户的检索意图，确定关键词
-2. **WebVPN 状态检测**（参见"数据源配置 → WebVPN 状态检测"一节，严格执行）：
-   - 导航到华艺健康检查 URL，判断 session 是否活跃
-   - 活跃 → 直接在华艺/知网/万方中执行检索（最高优先级）
-   - 过期 → 开浏览器到 WebVPN 登录页，等用户确认后继续，同时先用 WebSearch 做初步搜索
+2. **网络环境检测**（参见"数据源配置 → 网络环境检测"一节）：
+   - 校园网 → 直接访问知网/华艺/万方原始 URL
+   - 校外 → 走 WebVPN 代理
 3. 按优先级执行搜索：
-   - **P0**：通过 WebVPN 在华艺/知网/万方中检索（正式学术数据库，可下载全文）
+   - **P0**：知网/华艺/万方直接检索（校园网直连或 WebVPN）
+   - **P0.5**：academic-search 脚本并行（OpenAlex + Semantic Scholar，自动后台运行）
    - **P1**：WebSearch `关键词` （通用学术搜索，获取摘要和引用信息）
    - **P2**：WebSearch `site:ncpssd.cn 关键词` （哲社中心，免费正式全文）
    - **P3**：WebSearch `site:bsm.org.cn 关键词` （简帛网，非正式，仅供参考）
 4. 汇总结果，去重，按相关度排序，明确区分正式发表论文与非正式文章
-4. 对于需要知网/万方的检索，输出精确检索式供用户使用：
+4.5. **全文获取尝试**（有 DOI 的论文自动执行）：
+   ```
+   DOI → Sci-Hub (sci-hub.se/DOI) → 成功则下载 PDF
+       → 失败 → Anna's Archive (annas-archive.li 搜标题) → 下载
+       → 失败 → CORE (core.ac.uk/search?q=标题) → 开放获取版本
+       → 失败 → Unpaywall (api.unpaywall.org/v2/DOI?email=test@test.com) → OA 版本
+       → 全失败 → 标记"需知网/华艺下载"，给出检索式
+   ```
+   中文论文 DOI 获取：先用 CrossRef 脚本查标题→DOI，再走上述管线。
+   下载的 PDF 存入 `~/Documents/notes/papers/` 目录。
+5. 对于需要知网/万方的检索，输出精确检索式供用户使用：
    ```
    【知网检索式】
    主题 = "关键词A" AND 主题 = "关键词B"
@@ -429,7 +439,95 @@ description: >-
 
 ---
 
-## 未来演进：知识图谱（当前标记为 TODO）
+## 自动化检索脚本（2026-03-18 新增）
+
+> 来源：[lingzhi227/agent-research-skills](https://github.com/lingzhi227/agent-research-skills)
+> 脚本位于 `~/.cursor/skills/academic-search/scripts/`，仅依赖 Python 标准库。
+
+### 可用脚本及触发时机
+
+| 脚本 | 用途 | 何时调用 |
+|------|------|---------|
+| `search_openalex.py` | 搜 OpenAlex（2.5亿篇，免费，无需key） | "查"时自动并行调用 |
+| `search_semantic_scholar.py` | 搜 Semantic Scholar（AI/社科强） | "查"时自动并行调用 |
+| `search_crossref.py` | 按标题精确查DOI+BibTeX | "读"后自动查DOI补充bibliography |
+| `search_arxiv.py` | 搜 arXiv 预印本 | "泛读"前沿论文时 |
+| `extract_pdf.py` | PDF全文提取+章节切分 | "读"PDF时自动调用 |
+| `paper_db.py merge` | 多源结果去重合并 | "盘"时合并所有检索结果 |
+| `bibtex_manager.py` | JSONL → .bib 转换 | 导出参考文献时 |
+
+### "查"操作中的自动调用
+
+当执行"查"操作时，在 WebVPN/WebSearch 之外，自动并行运行以下脚本：
+
+```bash
+# 英文关键词版本（自动从中文翻译）
+python3 ~/.cursor/skills/academic-search/scripts/search_openalex.py \
+  --query "ENGLISH_QUERY" --max-results 20 --year-range 2000-2026 \
+  -o /tmp/research_openalex.jsonl
+
+python3 ~/.cursor/skills/academic-search/scripts/search_semantic_scholar.py \
+  --query "ENGLISH_QUERY" --max-results 20 --year-range 2000-2026 \
+  -o /tmp/research_s2.jsonl
+
+# 合并去重
+python3 ~/.cursor/skills/academic-search/scripts/paper_db.py merge \
+  --inputs /tmp/research_openalex.jsonl /tmp/research_s2.jsonl \
+  --output /tmp/research_merged.jsonl
+```
+
+将合并结果中相关度高的条目追加到检索报告。
+
+---
+
+## 古籍/简牍结构化分析管线（2026-03-18 新增）
+
+> 来源：[baojie/shiji-kb](https://github.com/baojie/shiji-kb) — 《史记》知识图谱化实战方法论
+> Skill 文件位于 `~/.cursor/skills/shiji-pipeline/`
+
+### 何时触发
+
+当"读"操作遇到**原始文献（简牍释文、出土文书原文）** 而非现代论文时，切换到古籍分析管线：
+
+| 信号 | 动作 |
+|------|------|
+| 文本含简牍编号（如 EPT52.94, 甲渠 73EJT10:1） | 走实体标注 → 事实发现 |
+| 用户说"标注一下""提取实体""结构化" | 走实体标注 → 事件识别 |
+| 用户说"有没有异常""文书造假""账面不符" | 走反常推理 |
+| 大量简牍文本需要系统处理 | 走完整管线：标注→事件→关系→反常 |
+
+### 管线步骤
+
+```
+简牍释文
+  ↓ SKILL_03a 实体标注（人名/官职/地名/器物/数量/时间/制度）
+标注文本
+  ↓ SKILL_05d 事实发现（原子三元组抽取）
+facts.jsonl
+  ↓ SKILL_04a 事件识别（事件类型/粒度控制）
+事件索引
+  ↓ SKILL_05b 关系构建（行政层级/制度关系）
+关系网络
+  ↓ SKILL_07c 反常推理（检测制度异常/数字异常/叙事异常）
+anomaly-notes.md → 选题灵感
+```
+
+### 输出文件
+
+| 文件 | 路径 | 内容 |
+|------|------|------|
+| 原子事实 | `~/Documents/notes/facts.jsonl` | SPO三元组+来源 |
+| 异常检测 | `~/Documents/notes/anomaly-notes.md` | 反常推理输出 |
+| 实体索引 | `~/Documents/notes/entity-index.md` | 已标注实体汇总 |
+
+### 外部验证工具
+
+- **北大"吾与点"** (wyd.pkudh.net)：古籍NER API，可交叉验证AI标注结果
+- **SikuBERT** (github.com/hsc748NLP/sikufenci)：古籍分词Python工具包
+
+---
+
+## 未来演进：知识图谱
 
 > **启动条件**：当 bibliography.md 条目超过 80 条，或 research-journal.md 超过 15 篇笔记时，手动引用关系管理将变得不可靠。届时启动知识图谱建设。
 
@@ -454,63 +552,59 @@ description: >-
 | **WebSearch** | 直接调用 | 通用学术搜索、学者信息、论文线索 | 无法下载PDF |
 | **国家哲社中心** `ncpssd.cn` | 通过 Google site: 搜索 | 社科期刊全文 | 站内搜索需JS，用外部搜索替代 |
 
-### WebVPN 状态检测（P0 数据库操作前必须执行）
+### 网络环境检测（P0 数据库操作前必须执行）
 
-> **背景（2026-03-13 实测归纳）**：
-> - 活跃 session：所有数据库 URL 经由 `libproxy.qh.yitlink.com:8444` 代理，页面正常加载
-> - 过期 session：URL 自动跳转到 `tlink.lib.tsinghua.edu.cn/go?url=...` 要求重新登录
-> - 触发过期的两种情况：① IP 变化（URL 参数 `logoutByIpChange=true`）② 长时间不活跃（经验估算约 1-2 小时）
+> **两种网络环境**（2026-03-18 更新）：
+> - **校园网 (tsinghua secure)**：直接访问知网/华艺/万方/JSTOR 等所有清华购买的数据库，无需 WebVPN
+> - **校外网络**：必须通过 WebVPN 代理访问
 
-**检测协议（在任何华艺/知网操作前必须执行）**：
+**检测协议**：
 
 ```
-步骤一：健康检查
-  用浏览器工具导航到：
+步骤一：判断网络环境
+  问用户或检查上下文：当前在校园网(tsinghua secure)还是校外？
+
+步骤二A（校园网）：直接访问
+  ✅ 知网：https://www.cnki.net/ 或 https://kns.cnki.net/
+  ✅ 华艺：https://www.airitilibrary.com/
+  ✅ 万方：https://www.wanfangdata.com.cn/
+  ✅ JSTOR：https://www.jstor.org/
+  → 清华IP段自动认证，无需登录，直接用浏览器工具操作
+
+步骤二B（校外/WebVPN）：代理访问
+  健康检查：导航到
   https://libproxy.qh.yitlink.com:8444/https/443/cn/airitilibrary/www/yitlink/
+  
+  ✅ 活跃：页面标题含"华艺学术文献数据库"
+  ❌ 过期：跳转到 tlink/twebvpn/webvpn 登录页
+  
+  过期时：
+  1. 导航到 https://webvpn.tsinghua.edu.cn/
+  2. 话术："WebVPN session 已过期，请在浏览器中重新登录清华统一认证，完成后告诉我。"
+  3. 等用户确认后重跑健康检查
 
-步骤二：判断结果
-  ✅ 活跃：结果页面标题包含"华艺学术文献数据库"
-         或 URL 仍以 libproxy.qh.yitlink.com 开头
-  ❌ 过期：URL 跳转到 tlink.lib.tsinghua.edu.cn
-         或 twebvpn.tsinghua.edu.cn
-         或 webvpn.tsinghua.edu.cn/login
-
-步骤三（仅当过期时）：唤起用户重新登录
-  1. 用浏览器工具导航到：https://webvpn.tsinghua.edu.cn/
-  2. 对用户说（固定话术）：
-     "WebVPN session 已过期（上次 IP 可能已变化）。
-      请在 Cursor 内置浏览器中重新登录清华统一认证——
-      输入学号密码完成后告诉我，我继续帮你检索。"
-  3. 等待用户回复"好了"/"登录完了"/"继续"等确认词
-  4. 重跑步骤一确认 session 恢复后，继续原始操作
-
-步骤四：记录最后确认时间
-  在对话上下文中记住：WebVPN 最后确认活跃时间 = [当前时间]
-  若距上次确认超过 60 分钟，下次 P0 操作前重新检测
+步骤三：记录环境
+  记住当前网络环境，同一对话内不需要重复检测
 ```
 
-**不需要检测的操作**（直接执行，无需 WebVPN）：
+**不需要任何认证的操作**（任何网络环境下直接执行）：
 - WebSearch、WebFetch（外网通用）
+- academic-search 脚本（OpenAlex/S2/CrossRef/arXiv）
 - bsm.org.cn 简帛网（公开访问）
 - ncpssd.cn 哲社中心（公开访问）
 - CiNii、KAKEN（公开访问）
 
 ---
 
-### 通过清华 WebVPN 访问的数据库（高优先级）
+### 清华图书馆数据库（校园网直连 / 校外走 WebVPN）
 
-**重要：凡是清华图书馆购买了访问权限的数据库，一律优先通过 WebVPN 访问，不走外网绕路。执行前必须先完成上方的 WebVPN 状态检测。**
+**校园网环境下（tsinghua secure WiFi）**：直接访问原始 URL，清华 IP 段自动认证。
+**校外环境**：通过 WebVPN 代理 URL 访问（见下方备注）。
 
-**首次登录流程**（session 从未建立或完全失效时）：
-1. AI 用浏览器工具打开 `https://webvpn.tsinghua.edu.cn/`
-2. 跳转到清华统一认证登录页 → **用户手动输入学号密码**（AI 不存储不输入凭证）
-3. 登录成功后，AI 通过 WebVPN 内的链接进入目标数据库
-4. AI 在数据库中执行检索、浏览结果、抓取截图或全文
-
-**已知代理 URL 格式**（session 活跃时直接使用，无需从导航入口进入）：
+**WebVPN 代理 URL 备注**（仅校外使用）：
 - 华艺：`https://libproxy.qh.yitlink.com:8444/https/443/cn/airitilibrary/www/yitlink/`
 - 知网：`https://libproxy.qh.yitlink.com:8444/https/443/net/cnki/kns/yitlink/kns8s/`
-- ⚠️ 注意：在代理 URL 内导航时，不要让 URL 跳出 `libproxy.qh.yitlink.com:8444` 域，否则 session 断开
+- ⚠️ 代理内不要跳出 `libproxy.qh.yitlink.com:8444` 域
 
 | 数据源 | 入口（数据库导航搜索词） | 实测结果 | 最适合搜什么 | 优先级 |
 |--------|------------------------|---------|-------------|--------|
@@ -609,22 +703,29 @@ research-engine（本 Skill）
     │       ├── 华艺/知网（tlink认证）→ 在线浏览或用户下载 → "读"
     │       ├── bsm.org.cn 全文 → 直接"读"
     │       ├── CiNii/KAKEN → 日文论文线索
-    │       └── WebSearch → 通用线索 → 追踪
+    │       ├── WebSearch → 通用线索 → 追踪
+    │       └── 🆕 academic-search 脚本（OpenAlex/S2/CrossRef）→ 自动并行检索
     │
     ├── 读 → 结构化笔记 + 选题判决
     │       │
     │       ├── 每篇必做：模板提取 + 选题判决字段
-    │       └── 重要论文必做（不是可选）：
-    │           ├── lijigang/system-analysis（三维解构）
-    │           ├── lijigang/see-essence（四层剥离）
-    │           ├── rank skill（降秩引擎）
-    │           └── explain-concept skill（概念解剖）
+    │       ├── 重要论文必做（不是可选）：
+    │       │   ├── lijigang/system-analysis（三维解构）
+    │       │   ├── lijigang/see-essence（四层剥离）
+    │       │   ├── rank skill（降秩引擎）
+    │       │   └── explain-concept skill（概念解剖）
+    │       └── 🆕 原始文献（简牍释文）→ 触发 shiji-pipeline 管线
+    │           ├── 实体标注（人名/官职/地名/器物/数量）
+    │           ├── 事实发现（原子三元组）→ facts.jsonl
+    │           ├── 事件识别 → 事件索引
+    │           └── 反常推理 → anomaly-notes.md（选题灵感）
     │
-    ├── 记 → 写入四个文件
+    ├── 记 → 写入核心文件
     │       ├── research-journal.md（笔记）
     │       ├── bibliography.md（目录）
     │       ├── search-matrix.md（关键词）
-    │       └── argument-skeleton.md（论点骨架——选题判决汇入）
+    │       ├── argument-skeleton.md（论点骨架——选题判决汇入）
+    │       └── 🆕 facts.jsonl / anomaly-notes.md（简牍分析输出）
     │
     ├── 追/盘 → 提取新线索 → 回到"查"
     │
@@ -639,6 +740,35 @@ research-engine（本 Skill）
             ├── 轻量笔记（一句话+核心洞见+跨域连接）
             ├── 写入 research-journal.md "方法论工具箱"节
             └── 发现实质连接 → 提示升级为正式"读"
+
+外部资源生态（2026-03-19 更新）
+    │
+    ├── 🆕 ultra-research（hacklyc/GitHub，多AI并行研究）
+    │   └── 通过 Playwright MCP 操控 Gemini/ChatGPT/Claude/Grok
+    │       已安装到 ~/.cursor/skills/ultra-research/
+    │       适用：宏观命题研究、理论比较、多角度分析
+    │
+    ├── 🆕 DOI→PDF 全文获取管线（来自 hacklyc/download-anything）
+    │   └── Sci-Hub → Anna's Archive → CORE → Unpaywall
+    │       已集成到"查"操作 4.5 步
+    │
+    ├── agent-research-skills（lingzhi227/GitHub, 31个学术技能）
+    │   └── deep-research / literature-review / idea-generation /
+    │       novelty-assessment / related-work-writing / survey-generation
+    │       如需更多技能可从此仓库按需复制到 ~/.cursor/skills/
+    │
+    ├── qinyan-academic-skills（LeonChaoX/GitHub, 177+技能）
+    │   └── 沁言学术API：万方/Google Scholar/PubMed/ArXiv 统一检索
+    │       需申请API key: platform.qinyanai.com
+    │
+    ├── Awesome-Scientific-Skills（InternScience/GitHub）
+    │   └── 涵盖18个科研领域的技能合集
+    │
+    ├── shiji-kb（baojie/GitHub, 26个方法论Skill）
+    │   └── 已安装到 ~/.cursor/skills/shiji-pipeline/
+    │
+    └── 北大"吾与点"（wyd.pkudh.net）
+        └── 古籍NER API：句读94%+ / NER 98.5%+
 ```
 
 ---
