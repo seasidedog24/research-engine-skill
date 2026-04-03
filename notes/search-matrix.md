@@ -58,15 +58,14 @@
 | 诣官校 | | | | | | | |
 | 运动式审查 | campaign-style audit | | | ✅ | | | |
 
-## E. 名实关系（连接个人选题）
+## E. 名实关系
 
 | 关键词 | 英文 | 日文 | bsm | WebSearch | ncpssd | 知网 | 备注 |
 |--------|------|------|-----|-----------|--------|------|------|
 | 名实 | name and reality | 名実 | | | | | |
-| 王莽 + 军号 | Wang Mang + military title | 王莽 + 将軍号 | | ✅ | | ✅ | |
-| 王莽 + 改名 | Wang Mang + renaming | | | ✅ | | | |
-| 新莽 + 官制 | Xin dynasty + bureaucracy | | | | | ✅ | |
-| 居延汉简 + 新莽 | Juyan + Xin dynasty | | | ✅ | | | |
+| 罢官 + 免官 | dismissal | | | | | | 邹晟论文核心词 |
+| 致仕 + 退休 | retirement | 致仕 | | | | | |
+| 官本位 | bureaucrat-centered | | | | | | |
 
 ## F. 简牍与出土文献（材料类）
 
