@@ -155,14 +155,14 @@
 
 | 关键词 | 英文 | 日文 | bsm | WebSearch | ncpssd | 知网 | 备注 |
 |--------|------|------|-----|-----------|--------|------|------|
-| 兵书 + 接受 | military text reception | 兵書受容 | | | | | |
+| 兵书 + 接受 | military text reception | 兵書受容 | | ✅ | | | 2026-04-07 搜索 |
 | 孙子兵法 + 注释史 | Sunzi commentary history | | | | | | |
-| 魏武帝注孙子 | Cao Cao's Sunzi commentary | | | | | | 核心文本 |
+| 魏武帝注孙子 | Cao Cao's Sunzi commentary | | | ✅ | | | 核心文本；2026-04-07搜索 |
 | 武经七书 | Seven Military Classics | 武経七書 | | | | | |
 | 兵学 + 玄学 | military thought + xuanxue | | | | | | 魏晋转化 |
 | 文人领兵 | literati commanders | | | | | | 陆逊/钟会/杜预 |
-| 银雀山汉简 + 孙子 | Yinqueshan + Sunzi | | | | | | 早期文本 |
-| 兵书 + 阶层 | military texts + class | | | | | | 惯习异化核心 |
+| 银雀山汉简 + 孙子 | Yinqueshan + Sunzi | | | ✅ | | | 早期文本；2026-04-07搜索 |
+| 兵书 + 阶层 | military texts + class | | | ✅ | | | 惯习异化核心；2026-04-07搜索 |
 | 隳 / 隋 / 修 | hui/sui/xiu variants | | | | | | 训诂核心字 |
 | 费留 / 费牢 | fei liu/fei lao | | | | | | 训诂核心词 |
 | 土功 | earth works/fortification | | | | | | 《左传》用例 |
@@ -246,6 +246,20 @@
 | 地图与领土 | map vs. territory | Korzybski |
 | 书写与国家 | writing and the state | |
 
+## R-DH. 数字人文与古文字AI
+
+| 关键词 | 英文 | 日文 | OpenAlex | S2 | WebSearch | 备注 |
+|--------|------|------|----------|-----|-----------|------|
+| 甲骨缀合 + AI | oracle bone rejoining + deep learning | | | | ✅ | 李霜洁RejoinX、张重生缀多多 |
+| 竹简缀合 + 深度学习 | bamboo slip fragment + physics-driven DL | | ✅ | | ✅ | WisePanda (Nature Comm 2025) |
+| 古籍NLP + 预训练模型 | classical Chinese NLP + pre-trained model | | ✅ | | ✅ | SikuBERT/荀子LLM/AI太炎/WenyanGPT/TongGu |
+| 简牍文字识别 | bamboo slip character recognition | 木簡文字認識 | ✅ | | ✅ | DeepJiandu数据集(西北师大) |
+| 历时词义演变 + 计算 | diachronic semantic change + computational | 通時的意味変化 | | | ✅ | 胡韧奋AI太炎3.0 |
+| 木簡 + AI | mokkan + machine learning + digital humanities | 木簡 + AI | | ✅ | ✅ | 奈良文化财MOJIZO系统 |
+| 古代语言 + 机器学习 | ancient languages + machine learning | | ✅ | | ✅ | CL 2023 survey |
+| 碎片拼接 + 文化遗产 | fragment matching + heritage + CV | | ✅ | | | Vesuvius Challenge/Fragmentarium |
+| 小模型 + 古文 | small LM + classical Chinese + fine-tuning | | ✅ | | ✅ | 1.5B-8B参数量即可 |
+
 ## R. 历史比较案例
 
 | 案例 | 核心逻辑 | 与本研究的对照 | 检索词 |
@@ -289,3 +303,26 @@
 | 2026-03-13 | 盐铁论+成本效益+汉代财政论辩 | WebSearch | 4 | 2 | 王利器校注本；思想史研究多，制度史视角少 |
 | 2026-03-13 | 阎步克+品位+职位+察举+秦汉 | WebSearch | 5 | 4 | 确认阎步克著作体系 |
 | 2026-03-13 | 邢义田+汉代+徭役+刑徒 | WebSearch | 4 | 3 | 高震寰博士论文是邢指导的台大论文 |
+|| 2026-04-07 | 安大简 曹沫之陈 兵书 研究综述 | WebSearch | ~10 | 5 | 确认安大简2022出版；华艺有2024新释文论文；简帛网有初读帖 |
+|| 2026-04-07 | 新公布的竹简兵书《盖庐》 | WebSearch+DuckDuckGo | ~10 | 4 | 张家山247号墓，55枚简，伍子胥问答体兵书，兵阴阳家 |
+|| 2026-04-07 | 先秦兵书 出土文献 孙子兵法 曹操注 接受史 | WebSearch | ~8 | 5 | 曹操注本=现存最早注本；银雀山简本篇序与传世本不同；黄朴民有版本研究 |
+|| 2026-04-07 | 银雀山汉简 孙子兵法 孙膑兵法 研究综述 | WebSearch | ~10 | 4 | 2024-2025有新展览新出版；集成本(叁)2021出版用红外扫描 |
+|| 2026-04-07 | 曹操注孙子兵法 兵书接受史 魏晋 注释传统 | WebSearch | ~8 | 3 | 曹注删82篇为13篇；《武经七书》仅孙子有曹注 |
+|| 2026-04-07 | 甲骨缀合 深度学习 李霜洁 自动缀合 | WebSearch | ~10 | 5 | RejoinX/缀多多/DRM模型；Nature npj Heritage Science 2025 |
+|| 2026-04-07 | 胡韧奋 古文字 数字人文 NLP | WebSearch | ~8 | 4 | AI太炎3.0(1.8B)新增历时词义演变；2025年古汉语典故资源库开源 |
+|| 2026-04-07 | 王东波 SikuBERT 古籍NLP | WebSearch | ~6 | 3 | 荀子古籍LLM获中央网信办备案(2025.5)；40亿字语料，完全开源 |
+|| 2026-04-07 | 张重生 甲骨缀合 缀多多 | WebSearch | ~8 | 4 | 2025年推出"重多多"；计划"简多多"做简牍复原 |
+|| 2026-04-07 | 竹简缀合 碎片拼接 深度学习 | WebSearch | ~8 | 5 | **WisePanda**(Nature Comm 2025)物理驱动，top-50达94%；DeepJiandu数据集 |
+|| 2026-04-07 | Japanese mokkan AI digital humanities | WebSearch | ~5 | 3 | 奈良MOJIZO/木簡庫57388件；DL应用薄弱 |
+|| 2026-04-07 | small language model ancient text classical Chinese | WebSearch+OpenAlex | ~15 | 5 | WenyanGPT(8B)/AI太炎(1.8B)/荀子-Qwen2(1.5B)/TongGu |
+|| 2026-04-07 | ancient text AI + fragment joining | OpenAlex | 20 | 3 | DeepJiandu/红外融合简牍/Chinese inscription restoration |
+|| 2026-04-07 | digital humanities AI tool vs research question | WebSearch | ~8 | 4 | Nature 2024综述；2024 DH学者survey(76人)；expert-in-the-loop范式 |
+|| 2026-04-07 | diachronic semantic change computational classical Chinese word embedding | WebSearch | ~10 | 5 | 杨驰2024(JLU)26.5万词数据集；DiscoCC(BNU沈力)2亿字语料；temporal transformer |
+|| 2026-04-07 | 词义演变 计算 历时语义变化 词向量 古汉语 | WebSearch | ~8 | 4 | 胡韧奋古汉语词义标注语料库315词5.8万条；ChiWUG(PolyU)40词6.1万判断 |
+|| 2026-04-07 | SikuBERT Word2vec ancient Chinese diachronic semantic shift | WebSearch | ~6 | 4 | SikuBERT(HF开放)/sikufenci工具/5.36亿字训练 |
+|| 2026-04-07 | DiscoCC diachronic semantic corpus classical Chinese download | WebSearch | ~5 | 3 | corpus.shenshen.wiki在线查询；批量下载未明确 |
+|| 2026-04-07 | ChiWUG Chinese lexical semantic change dataset | WebSearch | ~5 | 3 | ACL LChange 2023; WUGs项目(Garrafao/WUGs) |
+|| 2026-04-07 | AI太炎 AI Taiyan 1.8B model download | WebSearch | ~5 | 3 | t.shenshen.wiki在线可用；HF/ModelScope待确认 |
+|| 2026-04-07 | small corpus word2vec unreliable semantic shift | WebSearch | ~5 | 3 | **关键发现**：小语料Word2vec不稳定，纠偏了原方案 |
+|| 2026-04-07 | semantic variation between text editions computational philology | WebSearch | ~5 | 2 | edition comparison是独立范式，区别于经典LSCD |
+|| 2026-04-07 | 银雀山简本 曹操注 孙子兵法 字数 篇幅 | WebSearch | ~5 | 3 | 银雀山《孙子》约5000-6000字；4942枚简5万字(含孙膑等) |
