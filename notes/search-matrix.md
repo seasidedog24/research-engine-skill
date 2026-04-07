@@ -133,6 +133,143 @@
 | 均输平准 | equitable transportation | 均輸平準 | | | | | |
 | 本末并重 | agriculture and commerce | | | | | | 桑弘羊主张 |
 
+## L. 军功爵制与功劳数值化
+
+| 关键词 | 英文 | 日文 | bsm | WebSearch | ncpssd | 知网 | 备注 |
+|--------|------|------|-----|-----------|--------|------|------|
+| 军功爵制 | military merit rank | 軍功爵制 | | | | | 朱绍侯专著 |
+| 二十等爵 | twenty-rank system | 二十等爵 | | | | | |
+| 计首授爵 | head count for rank | | | | | | 核心机制 |
+| 首功 | head merit | 首功 | | | | | |
+| 功劳制 | merit system | 功労制 | | | | | 冉艳红第6章核心 |
+| 功令 | merit statutes | 功令 | | | | | 张家山汉简 |
+| 功次 | merit order | 功次 | | | | | |
+| 功劳数值化 | quantification of merit | | | | | | 冉艳红论点 |
+| 赐爵 / 拜爵 | rank bestowal | | | | | | |
+| 功臣表 | table of meritorious officials | | | | | | 《史记》《汉书》 |
+| 军功 + 简牍 | military merit + slips | | | | | | 交叉检索重点 |
+| 朱绍侯 | Zhu Shaohou | | | | | | 《军功爵制研究》 |
+| 杀良冒功 | killing civilians for credit | | | | | | 指标扭曲的直接证据 |
+
+## M. 兵书接受与知识转化
+
+| 关键词 | 英文 | 日文 | bsm | WebSearch | ncpssd | 知网 | 备注 |
+|--------|------|------|-----|-----------|--------|------|------|
+| 兵书 + 接受 | military text reception | 兵書受容 | | | | | |
+| 孙子兵法 + 注释史 | Sunzi commentary history | | | | | | |
+| 魏武帝注孙子 | Cao Cao's Sunzi commentary | | | | | | 核心文本 |
+| 武经七书 | Seven Military Classics | 武経七書 | | | | | |
+| 兵学 + 玄学 | military thought + xuanxue | | | | | | 魏晋转化 |
+| 文人领兵 | literati commanders | | | | | | 陆逊/钟会/杜预 |
+| 银雀山汉简 + 孙子 | Yinqueshan + Sunzi | | | | | | 早期文本 |
+| 兵书 + 阶层 | military texts + class | | | | | | 惯习异化核心 |
+| 隳 / 隋 / 修 | hui/sui/xiu variants | | | | | | 训诂核心字 |
+| 费留 / 费牢 | fei liu/fei lao | | | | | | 训诂核心词 |
+| 土功 | earth works/fortification | | | | | | 《左传》用例 |
+| 不修其功 | bu xiu qi gong | | | | | | 火攻篇核心句 |
+
+## N. 跨学科理论：量化、指标与权力
+
+| 关键词 | 英文 | 备注 |
+|--------|------|------|
+| 量化与权力 | quantification and social life | Espeland & Stevens |
+| 通约化 | commensuration | 把不可比较的东西变成可比较 |
+| 指标暴政 | tyranny of metrics | Jerry Muller 专著 |
+| 古德哈特定律 | Goodhart's law | 指标一旦成为目标就失效 |
+| 坎贝尔定律 | Campbell's law | 同上，社会科学版 |
+| 麦克纳马拉谬误 | McNamara fallacy | 只看能量化的东西 |
+| 审计社会 | audit society | Michael Power |
+| 指标执迷 | metric fixation | gaming / creaming / goal displacement |
+| 可读性 / 简单化 | legibility / simplification | James C. Scott |
+| 数字的信任 | Trust in Numbers | Theodore Porter |
+| 形式合理性 | formal vs. substantive rationality | Weber |
+| 制度脱耦 | institutional decoupling | Meyer & Rowan 1977 |
+| 仪式性服从 | ceremonial conformity | 制度社会学 |
+| 制度同构 | institutional isomorphism | DiMaggio & Powell |
+| 街头官僚 | street-level bureaucracy | Lipsky — 基层执行者的自主裁量 |
+| 数目字管理 | management by numbers | 黄仁宇 |
+| 运动式治理 | campaign-style governance | 周雪光（已有） |
+| 操作主义 | operationalism | Bridgman — 概念 = 测量操作 |
+
+## O. 跨学科理论：知识、惯习与文本
+
+| 关键词 | 英文 | 备注 |
+|--------|------|------|
+| 惯习 | habitus | Bourdieu |
+| 文化资本 | cultural capital | Bourdieu |
+| 场域 | field | Bourdieu |
+| 符号暴力 | symbolic violence | Bourdieu |
+| 阶层区隔 | distinction | Bourdieu 专著 |
+| 默会知识 | tacit knowledge | Polanyi — "我们知道的比能说的多" |
+| 知识转化 SECI | SECI model | Nonaka — 隐性/显性知识的转化 |
+| 体知 / 身体知识 | embodied knowledge | 军事经验的不可编码部分 |
+| 认知共同体 | epistemic cultures | Knorr-Cetina |
+| 阐释社群 | interpretive communities | Stanley Fish |
+| 接受史 | reception history / Rezeptionsgeschichte | |
+| 制度思维 | How Institutions Think | Mary Douglas |
+| 意义建构 | sensemaking | Karl Weick |
+| 前台 / 后台 | front stage / back stage | Goffman |
+| 印象管理 | impression management | Goffman |
+
+## P. 跨学科理论：传播、信息与媒介
+
+| 关键词 | 英文 | 备注 |
+|--------|------|------|
+| 信息不对称 | information asymmetry | Stiglitz/Akerlof |
+| 委托代理 | principal-agent problem | 上级无法验证下级报告 |
+| 道德风险 | moral hazard | 下级不承担虚报的全部后果 |
+| 信号与噪声 | signal vs. noise | |
+| 编码解码 | encoding/decoding | Stuart Hall |
+| 议程设置 | agenda setting | McCombs & Shaw |
+| 框架效应 | framing | Entman |
+| 守门人理论 | gatekeeping | |
+| 媒介即讯息 | the medium is the message | McLuhan |
+| 口头 vs. 书写 | orality vs. literacy | Ong / Goody |
+| 战争迷雾 | fog of war | Clausewitz |
+| 摩擦 | friction | Clausewitz |
+| 声量 vs. 影响 | share of voice vs. real impact | 舆情监测经验 |
+| 虚荣指标 | vanity metrics | 可见但不可靠的数据 |
+| 暗数据 | dark data | 系统不捕捉的信息 |
+
+## Q. 跨学科理论：铭写、档案与治理术
+
+| 关键词 | 英文 | 备注 |
+|--------|------|------|
+| 铭写装置 | inscription devices | Latour |
+| 不可变流动物 | immutable mobiles | Latour — 简牍 = 可搬运的固定信息 |
+| 计算中心 | centers of calculation | Latour |
+| 边界对象 | boundary objects | Star & Griesemer |
+| 治理术 | governmentality | Foucault |
+| 权力-知识 | power-knowledge | Foucault |
+| 治理技术 | technologies of government | Rose & Miller |
+| 档案与权力 | archives and power | Derrida / Foucault |
+| 地图与领土 | map vs. territory | Korzybski |
+| 书写与国家 | writing and the state | |
+
+## R. 历史比较案例
+
+| 案例 | 核心逻辑 | 与本研究的对照 | 检索词 |
+|------|---------|---------------|--------|
+| 越战尸体计数 | 用 body count 评估战争进展，导致滥杀和虚报 | ≈ 计首授爵的指标扭曲 | `body count Vietnam metrics` |
+| 苏联计划经济 | 工厂操纵计划指标（以吨/件计则产品畸变） | ≈ 考课压力下的账面共谋 | `Soviet planning gaming Berliner` |
+| 英国殖民印度土地丈量 | 简化复杂土地关系为单一所有权 | ≈ 秦户籍将复杂身份简化为编户 | `British cadastral survey India Scott` |
+| 罗马军功勋章 | dona militaria 从实战奖励变为政治忠诚标记 | ≈ 秦汉爵制从实战到身份的演变 | `dona militaria Roman transformation` |
+| 日本殖民台湾户口调查 | 分类系统即权力行为 | ≈ 秦户籍的分类即统治 | `colonial census Taiwan classification` |
+| AI 奖励黑客 | 模型 hack 指标以获高分但行为荒谬 | ≈ 为指标而斩首的行为扭曲 | `reward hacking specification gaming AI` |
+| Domesday Book | 征服者威廉的全国调查 — 国家可读性工程 | ≈ 秦的编户齐民 / 上计制度 | `Domesday Book legibility state` |
+
+## S. 先秦名实传统（本土理论资源）
+
+| 关键词 | 英文 | 备注 |
+|--------|------|------|
+| 正名 | rectification of names | 孔子 |
+| 形名参同 | matching names to realities | 韩非 — 法家核心技术 |
+| 循名责实 | holding accountable by name | |
+| 综核名实 | comprehensive name-reality check | |
+| 名家 | School of Names | 公孙龙/惠施 |
+| 白马非马 | a white horse is not a horse | 名实逻辑 |
+| 刑名 / 形名 | xing-ming | 秦行政的理论基础 |
+
 ---
 
 ## 检索记录
